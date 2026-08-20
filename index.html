@@ -14,7 +14,6 @@
       --primary:#9e2f20; --primary2:#c84a32; --dark:#171513;
       --line:#e8e1d8; --green:#20a35a; --gold:#f5a623;
       --shadow:0 12px 35px rgba(35,25,18,.10);
-      --whatsapp:#25D366;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
@@ -378,13 +377,13 @@
     .back-top:hover{background:var(--primary2);transform:translateY(-3px) scale(1.05)}
 
     /* ============================================================
-       WHATSAPP FLOTANTE - con logo oficial
+       WHATSAPP FLOTANTE
        ============================================================ */
     .whatsapp-float{
-      position:fixed;right:20px;bottom:20px;width:60px;height:60px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;z-index:90;box-shadow:0 8px 24px rgba(37,211,102,.4);transition:transform .25s ease, opacity .25s ease, visibility .25s ease;
+      position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;z-index:90;box-shadow:0 8px 24px rgba(0,0,0,.22);transition:transform .25s ease, opacity .25s ease, visibility .25s ease;
     }
     .whatsapp-float:hover{transform:scale(1.08)}
-    .whatsapp-float svg{width:34px;height:34px;fill:currentColor}
+    .whatsapp-float svg{width:31px;height:31px;fill:currentColor}
     .whatsapp-float.hidden-footer{opacity:0 !important;visibility:hidden !important;pointer-events:none !important;transform:translateY(15px) scale(.9) !important}
 
     /* ============================================================
@@ -412,49 +411,19 @@
     .free-shipping-progress .bar{height:100%;background:var(--green);border-radius:999px;transition:width .5s;width:0%}
     .free-shipping-msg{font-size:12px;color:var(--muted);text-align:center;margin-bottom:8px}
     .free-shipping-msg strong{color:var(--green)}
-    .checkout{width:100%;background:var(--green);color:#fff;padding:14px;border-radius:12px;font-weight:900;border:none;cursor:pointer;transition:background .3s,transform .2s;display:flex;align-items:center;justify-content:center;gap:10px}
+    .checkout{width:100%;background:var(--green);color:#fff;padding:14px;border-radius:12px;font-weight:900;border:none;cursor:pointer;transition:background .3s,transform .2s}
     .checkout:hover{background:#1a8a4a;transform:scale(1.01)}
-    .checkout svg{width:22px;height:22px;fill:currentColor}
     .note{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
 
     /* MODAL CHECKOUT */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:120;display:none;align-items:center;justify-content:center;padding:20px}
     .modal.open{display:flex}
-    .modal-box{
-      background:#fff;
-      border-radius:22px;
-      width:min(520px,100%);
-      padding:28px 28px 32px;
-      max-height:90vh;
-      overflow:auto;
-      position:relative;
-      box-shadow:0 20px 60px rgba(0,0,0,.3);
-    }
+    .modal-box{background:#fff;border-radius:22px;width:min(520px,100%);padding:24px;max-height:90vh;overflow:auto;position:relative}
     .modal-close{
-      position:absolute;
-      top:14px;
-      right:18px;
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:var(--bg);
-      border:none;
-      cursor:pointer;
-      color:var(--dark);
-      font-size:24px;
-      transition:all .3s;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      line-height:1;
-      padding:0;
+      position:absolute;top:14px;right:18px;font-size:28px;background:none;border:none;cursor:pointer;color:var(--muted);transition:color .3s;padding:0 6px;line-height:1;
     }
-    .modal-close:hover{
-      background:var(--primary);
-      color:#fff;
-      transform:rotate(90deg);
-    }
-    .modal-box h2{margin-bottom:5px;padding-right:40px}
+    .modal-close:hover{color:var(--dark)}
+    .modal-box h2{margin-bottom:5px;padding-right:30px}
     .modal-box>p{color:var(--muted);font-size:14px;margin-bottom:18px}
     .form{display:grid;gap:12px}
     .form label{font-size:13px;font-weight:800}
@@ -486,7 +455,9 @@
     }
     @media(max-width:560px){
       .nav{height:68px}
+      /* Mostrar hamburguesa */
       .hamburger{display:flex}
+      /* Ocultar texto "Carrito" y mostrar solo ícono */
       .cart-btn .cart-text{display:none}
       .cart-btn .cart-icon-only{display:inline}
       .cart-btn{padding:11px 13px;gap:6px}
@@ -511,7 +482,7 @@
       .eyebrow{font-size:11px;padding:6px 10px}
       .primary{font-size:13px;padding:12px 16px}
       .whatsapp-float{right:15px;bottom:15px;width:54px;height:54px}
-      .whatsapp-float svg{width:30px;height:30px}
+      .whatsapp-float svg{width:29px;height:29px}
       .encontranos-info h2{font-size:24px}
       .encontranos-info .subtitle{font-size:14px}
       .encontranos-info .info-row{font-size:13px}
@@ -529,8 +500,6 @@
       .order-bump-box{padding:20px}
       .bump-product{flex-direction:column;text-align:center}
       .bump-actions{flex-direction:column}
-      .modal-box{padding:20px}
-      .modal-close{top:10px;right:12px;width:36px;height:36px;font-size:20px}
     }
     @media(max-width:400px){
       .products{grid-template-columns:1fr}
@@ -568,6 +537,7 @@
         </div>
       </a>
       <div class="nav-right">
+        <!-- HAMBURGUESA -->
         <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú" onclick="toggleMobileMenu()">
           <span></span><span></span><span></span>
         </button>
@@ -578,6 +548,7 @@
         </button>
       </div>
     </nav>
+    <!-- Menú móvil desplegable -->
     <div class="mobile-menu" id="mobileMenu">
       <a href="#tienda" onclick="closeMobileMenu()">🛒 Tienda</a>
       <a href="#testimonios" onclick="closeMobileMenu()">⭐ Testimonios</a>
@@ -587,7 +558,7 @@
   </header>
 
   <!-- ============================================================
-       HERO
+       HERO - FULL WIDTH CON DEGRADADO
        ============================================================ -->
   <section class="hero">
     <div class="hero-content">
@@ -816,24 +787,18 @@
         <div class="row"><span>Subtotal</span><b id="subtotal">$0</b></div>
         <div class="row"><span>Envío</span><span id="shipping">$0</span></div>
         <div class="row total"><span>Total</span><span id="total">$0</span></div>
-        <button class="checkout" onclick="openCheckout()">
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <path d="M19.11 17.36c-.27-.14-1.59-.78-1.84-.87-.25-.09-.43-.14-.61.14-.18.27-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29s.98 2.66 1.11 2.84c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.55.57.65.21 1.24.18 1.71.11.52-.08 1.59-.65 1.81-1.27.23-.62.23-1.15.16-1.27-.07-.11-.25-.18-.52-.32z"/>
-            <path d="M16.03 3C8.84 3 3 8.72 3 15.77c0 2.25.6 4.45 1.73 6.39L3 29l7.02-1.68a13.2 13.2 0 0 0 6.01 1.44h.01c7.19 0 13.03-5.72 13.03-12.77C29.07 8.72 23.22 3 16.03 3zm0 23.65h-.01c-1.88 0-3.72-.5-5.33-1.44l-.38-.22-4.17 1 1.01-4.02-.25-.41a10.54 10.54 0 0 1-1.62-5.61c0-5.83 4.84-10.57 10.76-10.57 2.87 0 5.57 1.1 7.6 3.1 2.03 2 3.15 4.66 3.15 7.49 0 5.83-4.84 10.57-10.76 10.57z"/>
-          </svg>
-          Continuar con el pedido
-        </button>
+        <button class="checkout" onclick="openCheckout()">Continuar con el pedido →</button>
         <div class="note">El envío se coordina al confirmar el pedido.</div>
       </div>
     </aside>
   </div>
 
   <!-- ============================================================
-       MODAL CHECKOUT
+       MODAL CHECKOUT - CON X
        ============================================================ -->
   <div class="modal" id="checkoutModal">
     <div class="modal-box">
-      <button class="modal-close" onclick="closeCheckout()" aria-label="Cerrar">✕</button>
+      <button class="modal-close" onclick="closeCheckout()" aria-label="Cerrar">×</button>
       <div id="checkoutContent">
         <h2>Finalizar pedido</h2>
         <p>Completá tus datos y te llevamos el pedido a WhatsApp.</p>
@@ -849,20 +814,14 @@
           </div>
           <div id="addressWrap"><label>Dirección</label><input id="address" placeholder="Calle, número, barrio"></div>
           <div><label>Observaciones</label><textarea id="notes" placeholder="Ej. cortar el asado en tiras..."></textarea></div>
-          <button class="checkout" type="submit">
-            <svg viewBox="0 0 32 32" aria-hidden="true">
-              <path d="M19.11 17.36c-.27-.14-1.59-.78-1.84-.87-.25-.09-.43-.14-.61.14-.18.27-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29s.98 2.66 1.11 2.84c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.55.57.65.21 1.24.18 1.71.11.52-.08 1.59-.65 1.81-1.27.23-.62.23-1.15.16-1.27-.07-.11-.25-.18-.52-.32z"/>
-              <path d="M16.03 3C8.84 3 3 8.72 3 15.77c0 2.25.6 4.45 1.73 6.39L3 29l7.02-1.68a13.2 13.2 0 0 0 6.01 1.44h.01c7.19 0 13.03-5.72 13.03-12.77C29.07 8.72 23.22 3 16.03 3zm0 23.65h-.01c-1.88 0-3.72-.5-5.33-1.44l-.38-.22-4.17 1 1.01-4.02-.25-.41a10.54 10.54 0 0 1-1.62-5.61c0-5.83 4.84-10.57 10.76-10.57 2.87 0 5.57 1.1 7.6 3.1 2.03 2 3.15 4.66 3.15 7.49 0 5.83-4.84 10.57-10.76 10.57z"/>
-            </svg>
-            Enviar pedido por WhatsApp
-          </button>
+          <button class="checkout" type="submit">📲 Enviar pedido por WhatsApp</button>
         </form>
       </div>
     </div>
   </div>
 
   <!-- ============================================================
-       ORDER BUMP
+       ORDER BUMP - se muestra al hacer clic en "Continuar con el pedido"
        ============================================================ -->
   <div class="order-bump-overlay" id="orderBumpOverlay">
     <div class="order-bump-box">
@@ -918,53 +877,21 @@
     };
 
     // ============================================================
-    // PRODUCTOS - Más variedad de carnes crudas y almacén
+    // PRODUCTOS
     // ============================================================
     const products = [
-      // ===== CARNES VACUNAS =====
       {id:1, name:"Asado", cat:"Carne vacuna", price:8500, unit:"kg", img:"https://www.proveeduriapiaf.com.ar/wp-content/uploads/8053_asado_de_tira_corte_ventana-2.png", desc:"Corte ideal para la parrilla."},
       {id:2, name:"Vacío", cat:"Carne vacuna", price:9200, unit:"kg", img:"https://carneya.com.ar/wp-content/uploads/2024/03/Tezza-7067.jpg", desc:"Ideal para horno o parrilla."},
       {id:3, name:"Matambre", cat:"Carne vacuna", price:9800, unit:"kg", img:"https://pampa-brava.com.ar/wp-content/uploads/2020/09/matambre-2.jpg", desc:"Perfecto para preparar relleno."},
       {id:4, name:"Bife de chorizo", cat:"Carne vacuna", price:12500, unit:"kg", img:"https://i1.wp.com/files.agro20.com.br/uploads/2019/12/Bife-de-chorizo-1.jpg?resize=1024%2C682&ssl=1", desc:"Corte premium y sabroso."},
-      {id:13, name:"Costillar", cat:"Carne vacuna", price:7800, unit:"kg", img:"https://carneslujan.com.ar/wp-content/uploads/2021/04/costillar-1.jpg", desc:"Con hueso, ideal para parrilla."},
-      {id:14, name:"Falda parrillera", cat:"Carne vacuna", price:6500, unit:"kg", img:"https://www.frigorificosada.com.ar/img/falda.webp", desc:"Corte con mucha grasa, perfecto para la parrilla."},
-      {id:15, name:"Tapa de asado", cat:"Carne vacuna", price:8900, unit:"kg", img:"https://www.frigorificosada.com.ar/img/tapa_asado.webp", desc:"Corte jugoso y sabroso."},
-      {id:16, name:"Cuadril", cat:"Carne vacuna", price:10500, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/cuadril-1.jpg", desc:"Corte magro, ideal para milanesas."},
-      {id:17, name:"Lomo", cat:"Carne vacuna", price:14000, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/lomo-1.jpg", desc:"El corte más tierno y premium."},
-      {id:18, name:"Paleta", cat:"Carne vacuna", price:7200, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/paleta-1.jpg", desc:"Ideal para guisos y estofados."},
-      {id:19, name:"Nalga", cat:"Carne vacuna", price:9500, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/nalga-1.jpg", desc:"Perfecta para milanesas."},
-      {id:20, name:"Entraña", cat:"Carne vacuna", price:11800, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/entrana-1.jpg", desc:"Corte con mucho sabor, ideal para parrilla."},
-      {id:21, name:"Tira de asado", cat:"Carne vacuna", price:8200, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/tira-de-asado-1.jpg", desc:"Clásico de la parrilla argentina."},
-      
-      // ===== POLLO =====
       {id:5, name:"Pechuga de pollo", cat:"Pollo", price:6200, unit:"kg", img:"https://chicagosteakguy.com/cdn/shop/products/AdobeStock_83103702_2160x.jpg?v=1595704519", desc:"Fresca y lista para cocinar."},
       {id:6, name:"Pata muslo", cat:"Pollo", price:4200, unit:"kg", img:"https://static.vecteezy.com/system/resources/previews/041/031/219/non_2x/ai-generated-raw-chicken-thighs-isolated-on-white-background-free-photo.jpg", desc:"Una opción rendidora."},
-      
-      // ===== CERDO =====
       {id:7, name:"Bondiola de cerdo", cat:"Cerdo", price:7600, unit:"kg", img:"https://acdn-us.mitiendanube.com/stores/001/924/637/products/bondiola-31d40833695660469417341841029894-640-0.webp", desc:"Tierna y excelente para horno."},
       {id:8, name:"Costeleta de cerdo", cat:"Cerdo", price:6900, unit:"kg", img:"https://img.cdn4dd.com/cdn-cgi/image/fit%3Dcontain%2Cwidth%3D1200%2Cheight%3D672%2Cformat%3Dauto/https%3A/doordash-static.s3.amazonaws.com/media/photosV2/f8b46bff-678a-469c-86f4-2619e8a22c0d-retina-large.jpg", desc:"Ideal para plancha o parrilla."},
-      {id:22, name:"Peceto de cerdo", cat:"Cerdo", price:6500, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/peceto-1.jpg", desc:"Corte magro y sabroso."},
-      
-      // ===== EMBUTIDOS =====
       {id:9, name:"Chorizo parrillero", cat:"Embutidos", price:5800, unit:"kg", img:"https://www.labutcheria.com/storage/products/RO6M92FZW4LgWxjUl3aTIjAPqPjbsGiw4EVVB4iz.jpeg", desc:"Clásico para la parrilla."},
       {id:10, name:"Morcilla", cat:"Embutidos", price:5200, unit:"kg", img:"https://dcdn-us.mitiendanube.com/stores/001/271/139/products/morcilla1-ff6e56bec7e5217bc015948465025031-480-0.webp", desc:"Para completar la parrillada."},
-      
-      // ===== ACHURAS =====
       {id:11, name:"Mollejas", cat:"Achuras", price:10500, unit:"kg", img:"https://www.frigorificosada.com.ar/img/menudencia.webp", desc:"Un clásico de la parrilla."},
-      
-      // ===== COMBOS =====
-      {id:12, name:"Combo Parrillero", cat:"Combos", price:32000, unit:"combo", img:"https://carneya.com.ar/wp-content/uploads/2024/03/Tezza-7067.jpg", desc:"Carne + chorizos + morcilla + achuras."},
-      
-      // ===== ALMACÉN / DESPENSA =====
-      {id:23, name:"Carbón para parrilla", cat:"Almacén", price:4500, unit:"bolsa", img:"https://http2.mlstatic.com/D_NQ_NP_862649-MLA72854280852_112023-O.webp", desc:"Bolsa de carbón, ideal para tu parrilla."},
-      {id:24, name:"Sal parrillera", cat:"Almacén", price:800, unit:"kg", img:"https://http2.mlstatic.com/D_NQ_NP_862907-MLA51179117725_082022-O.webp", desc:"Sal gruesa para la parrilla."},
-      {id:25, name:"Chimichurri", cat:"Almacén", price:650, unit:"pote", img:"https://http2.mlstatic.com/D_NQ_NP_807584-MLA52274826231_112022-O.webp", desc:"El clásico aderezo para carnes."},
-      {id:26, name:"Mayonesa", cat:"Almacén", price:1200, unit:"unidad", img:"https://http2.mlstatic.com/D_NQ_NP_610684-MLA52735816257_122022-O.webp", desc:"Mayonesa cremosa, ideal para acompañar."},
-      {id:27, name:"Ketchup", cat:"Almacén", price:1100, unit:"unidad", img:"https://http2.mlstatic.com/D_NQ_NP_952647-MLA51445279001_092022-O.webp", desc:"Salsa de tomate para tus comidas."},
-      {id:28, name:"Mostaza", cat:"Almacén", price:1000, unit:"unidad", img:"https://http2.mlstatic.com/D_NQ_NP_637786-MLA51451054576_092022-O.webp", desc:"Mostaza clásica para acompañar."},
-      {id:29, name:"Huevos", cat:"Almacén", price:3200, unit:"docena", img:"https://http2.mlstatic.com/D_NQ_NP_841806-MLA72241278763_102023-O.webp", desc:"Huevos frescos, ideales para cualquier comida."},
-      {id:30, name:"Papas para fritas", cat:"Almacén", price:2500, unit:"kg", img:"https://http2.mlstatic.com/D_NQ_NP_833649-MLA51447274300_092022-O.webp", desc:"Papas seleccionadas, ideales para fritas."},
-      {id:31, name:"Ensalada lista", cat:"Almacén", price:1800, unit:"unidad", img:"https://http2.mlstatic.com/D_NQ_NP_695612-MLA72040007826_102023-O.webp", desc:"Ensalada fresca ya preparada."}
+      {id:12, name:"Combo Parrillero", cat:"Combos", price:32000, unit:"combo", img:"https://carneya.com.ar/wp-content/uploads/2024/03/Tezza-7067.jpg", desc:"Carne + chorizos + morcilla + achuras."}
     ];
 
     // ============================================================
@@ -1103,28 +1030,33 @@
     function closeCart(){document.getElementById("cartOverlay").classList.remove("open")}
 
     // ============================================================
-    // ORDER BUMP
+    // ORDER BUMP - se muestra al hacer clic en "Continuar con el pedido"
     // ============================================================
     function showBump(){
       if(cart.length === 0) return;
       if(isBumpShowing) return;
       
+      // Buscar productos en el carrito y sugerir uno relacionado
       const cartProductIds = cart.map(item => item.id);
       let candidates = products.filter(p => !cartProductIds.includes(p.id));
       
       if(candidates.length === 0) {
+        // Si no hay productos para sugerir, ir directamente al checkout
         openCheckoutModal();
         return;
       }
       
+      // Seleccionar uno aleatorio
       const bumpProduct = candidates[Math.floor(Math.random() * candidates.length)];
       
+      // Mostrar el bump
       document.getElementById("bumpImg").src = bumpProduct.img;
       document.getElementById("bumpName").textContent = bumpProduct.name;
-      const discountPrice = Math.round(bumpProduct.price * 0.85);
+      const discountPrice = Math.round(bumpProduct.price * 0.85); // 15% off
       document.getElementById("bumpPrice").textContent = money(discountPrice);
       document.getElementById("bumpOriginal").textContent = money(bumpProduct.price);
       
+      // Guardar el precio con descuento en el botón
       document.querySelector(".btn-add-bump").dataset.bumpPrice = discountPrice;
       document.querySelector(".btn-add-bump").dataset.bumpId = bumpProduct.id;
       
@@ -1135,7 +1067,9 @@
     function addBumpToCart(){
       const btn = document.querySelector(".btn-add-bump");
       const bumpId = parseInt(btn.dataset.bumpId);
+      const bumpPrice = parseInt(btn.dataset.bumpPrice);
       
+      // Verificar si ya está en el carrito
       const existing = cart.find(x => x.id === bumpId);
       if(existing){
         existing.qty += 1;
@@ -1149,6 +1083,7 @@
     function closeBumpAndContinue(){
       document.getElementById("orderBumpOverlay").classList.remove("open");
       isBumpShowing = false;
+      // Continuar con el checkout
       openCheckoutModal();
     }
 
@@ -1161,6 +1096,7 @@
         return;
       }
       closeCart();
+      // Mostrar order bump antes del checkout
       showBump();
     }
 
