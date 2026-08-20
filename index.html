@@ -22,7 +22,7 @@
     button{cursor:pointer;border:0}
 
     /* ============================================================
-       TOP CARRUSEL INFINITO - ESTILO MARQUESINA LED
+       TOP CARRUSEL INFINITO
        ============================================================ */
     .top-carousel{
       background:var(--dark);
@@ -64,10 +64,7 @@
       gap:12px;
       flex-shrink:0;
     }
-    .top-slide .highlight{
-      color:var(--gold);
-      font-weight:700;
-    }
+    .top-slide .highlight{color:var(--gold);font-weight:700}
     .top-slide .free-shipping-badge{
       background:rgba(32,163,90,.2);
       border:1px solid rgba(32,163,90,.3);
@@ -79,17 +76,9 @@
       animation:pulseBadge 2s ease-in-out infinite;
       display:inline-block;
     }
-    @keyframes pulseBadge{
-      0%,100%{transform:scale(1);opacity:1}
-      50%{transform:scale(1.05);opacity:.8}
-    }
-    @keyframes scrollMarquee{
-      0%{transform:translateX(0)}
-      100%{transform:translateX(-50%)}
-    }
-    .top-carousel:hover .top-track{
-      animation-play-state:paused;
-    }
+    @keyframes pulseBadge{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.8}}
+    @keyframes scrollMarquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    .top-carousel:hover .top-track{animation-play-state:paused}
 
     /* ============================================================
        HEADER Y NAV
@@ -98,22 +87,135 @@
     .nav{max-width:1200px;margin:auto;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:20px}
     .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text)}
     .brand img{height:50px;width:auto;border-radius:10px;object-fit:contain}
-    .brand strong{font-size:18px}.brand span{display:block;color:var(--muted);font-size:11px;margin-top:2px}
-    .cart-btn{background:var(--dark);color:#fff;border-radius:13px;padding:11px 15px;display:flex;align-items:center;gap:8px;font-weight:800;border:none;cursor:pointer;transition:background .3s}
+    .brand strong{font-size:18px}
+    .brand span{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+    
+    /* HAMBURGUESA */
+    .hamburger{
+      display:none;
+      flex-direction:column;
+      gap:5px;
+      background:transparent;
+      padding:8px 4px;
+      cursor:pointer;
+      border:none;
+    }
+    .hamburger span{
+      display:block;
+      width:28px;
+      height:3px;
+      background:var(--dark);
+      border-radius:999px;
+      transition:all .3s;
+    }
+    .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+    
+    .nav-right{display:flex;align-items:center;gap:12px}
+    .cart-btn{
+      background:var(--dark);
+      color:#fff;
+      border-radius:13px;
+      padding:11px 15px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-weight:800;
+      border:none;
+      cursor:pointer;
+      transition:background .3s;
+    }
     .cart-btn:hover{background:var(--primary)}
-    .cart-count{background:#fff;color:var(--dark);min-width:23px;height:23px;border-radius:50%;display:grid;place-items:center;font-size:12px}
+    .cart-btn .cart-text{display:inline}
+    .cart-btn .cart-icon-only{display:none}
+    .cart-count{
+      background:#fff;
+      color:var(--dark);
+      min-width:23px;
+      height:23px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    /* Menú móvil desplegable */
+    .mobile-menu{
+      display:none;
+      flex-direction:column;
+      background:rgba(255,255,255,.98);
+      backdrop-filter:blur(8px);
+      padding:20px;
+      border-top:1px solid var(--line);
+      gap:10px;
+      position:absolute;
+      top:76px;
+      left:0;
+      right:0;
+      z-index:60;
+      box-shadow:0 20px 40px rgba(0,0,0,.12);
+    }
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+      padding:10px 14px;
+      border-radius:10px;
+      transition:background .3s;
+      font-size:15px;
+    }
+    .mobile-menu a:hover{background:var(--line)}
+    .mobile-menu .mobile-categories{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+    .mobile-menu .mobile-categories button{background:transparent;border:1px solid var(--line);padding:8px 14px;border-radius:999px;font-weight:600;font-size:13px;transition:all .3s;cursor:pointer}
+    .mobile-menu .mobile-categories button.active,.mobile-menu .mobile-categories button:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
 
     /* ============================================================
-       HERO
+       HERO - FULL WIDTH CON DEGRADADO
        ============================================================ */
-    .hero{max-width:1200px;margin:24px auto 0;padding:0 20px}
-    .hero-box{min-height:450px;border-radius:28px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;background:
-      linear-gradient(90deg,rgba(15,12,10,.88),rgba(15,12,10,.50),rgba(15,12,10,.20)),
-      url('https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=1200&h=600&fit=crop&crop=center') center/cover;
-      background-size:cover;background-position:center}
-    .hero-content{padding:60px 55px;max-width:700px;color:#fff;position:relative;z-index:2;text-align:center}
+    .hero{
+      width:100%;
+      min-height:70vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      background:
+        linear-gradient(0deg, rgba(15,12,10,.92) 0%, rgba(15,12,10,.55) 40%, rgba(15,12,10,.15) 70%, rgba(15,12,10,.05) 100%),
+        url('https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=1600&h=900&fit=crop&crop=center') center/cover no-repeat;
+      background-size:cover;
+      background-position:center;
+    }
+    .hero::after{
+      content:'';
+      position:absolute;
+      bottom:0;
+      left:0;
+      right:0;
+      height:30%;
+      background:linear-gradient(0deg, var(--bg) 0%, transparent 100%);
+      pointer-events:none;
+    }
+    .hero-content{
+      padding:40px 30px;
+      max-width:750px;
+      color:#fff;
+      position:relative;
+      z-index:2;
+      text-align:center;
+      margin-top:-40px;
+    }
     .hero-logo{margin-bottom:25px}
-    .hero-logo img{height:180px;width:auto;border-radius:24px;filter:drop-shadow(0 0 20px rgba(158,47,32,.7)) drop-shadow(0 0 40px rgba(158,47,32,.4));animation:pulseNeon 2.5s ease-in-out infinite;max-width:90%}
+    .hero-logo img{
+      height:180px;
+      width:auto;
+      border-radius:24px;
+      filter:drop-shadow(0 0 20px rgba(158,47,32,.7)) drop-shadow(0 0 40px rgba(158,47,32,.4));
+      animation:pulseNeon 2.5s ease-in-out infinite;
+      max-width:90%;
+    }
     @keyframes pulseNeon{
       0%{filter:drop-shadow(0 0 20px rgba(158,47,32,.7)) drop-shadow(0 0 40px rgba(158,47,32,.3))}
       50%{filter:drop-shadow(0 0 35px rgba(158,47,32,1)) drop-shadow(0 0 70px rgba(158,47,32,.6)) drop-shadow(0 0 100px rgba(158,47,32,.35))}
@@ -126,7 +228,7 @@
     .primary:hover{background:var(--primary2);transform:scale(1.02)}
 
     /* ============================================================
-       CARRUSEL DE BANNERS DE OFERTAS
+       BANNER OFERTAS
        ============================================================ */
     .banner-ofertas{max-width:1200px;margin:18px auto 0;padding:0 20px;position:relative;overflow:hidden}
     .banner-slider{display:flex;transition:transform .8s ease-in-out}
@@ -148,7 +250,7 @@
     .banner-dots button.active{background:var(--primary);transform:scale(1.3)}
 
     /* ============================================================
-       CORTES DESTACADOS (SLIDER)
+       DESTACADOS
        ============================================================ */
     .destacados{max-width:1200px;margin:30px auto 0;padding:0 20px}
     .destacados-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
@@ -187,6 +289,38 @@
     .add{background:var(--dark);color:#fff;border-radius:11px;padding:11px;font-weight:850;margin-top:4px;border:none;cursor:pointer;transition:background .3s}
     .add:hover{background:var(--primary)}
     .empty{grid-column:1/-1;text-align:center;background:#fff;padding:40px;border-radius:18px;color:var(--muted)}
+
+    /* ============================================================
+       ORDER BUMP
+       ============================================================ */
+    .order-bump-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:110;display:none;align-items:center;justify-content:center;padding:20px;
+    }
+    .order-bump-overlay.open{display:flex}
+    .order-bump-box{
+      background:#fff;border-radius:24px;max-width:480px;width:100%;padding:30px;position:relative;animation:bumpPop .4s ease;
+    }
+    @keyframes bumpPop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+    .order-bump-box .close-bump{
+      position:absolute;top:12px;right:16px;font-size:28px;background:none;border:none;cursor:pointer;color:var(--muted);transition:color .3s;padding:4px 8px;
+    }
+    .order-bump-box .close-bump:hover{color:var(--dark)}
+    .order-bump-box .bump-badge{
+      display:inline-block;background:var(--primary);color:#fff;font-size:11px;font-weight:800;padding:4px 14px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;
+    }
+    .order-bump-box h3{font-size:22px;margin-bottom:4px}
+    .order-bump-box .bump-sub{color:var(--muted);font-size:14px;margin-bottom:18px}
+    .bump-product{display:flex;align-items:center;gap:16px;background:var(--bg);border-radius:16px;padding:14px;margin-bottom:18px}
+    .bump-product img{width:80px;height:80px;object-fit:cover;border-radius:10px}
+    .bump-product .bump-info{flex:1}
+    .bump-product .bump-info h4{font-size:16px}
+    .bump-product .bump-info .bump-price{font-weight:900;color:var(--primary);font-size:18px}
+    .bump-product .bump-info .bump-original{text-decoration:line-through;color:var(--muted);font-size:13px;margin-left:8px}
+    .bump-actions{display:flex;gap:10px}
+    .bump-actions .btn-add-bump{flex:1;background:var(--green);color:#fff;padding:14px;border-radius:12px;font-weight:800;border:none;cursor:pointer;transition:background .3s}
+    .bump-actions .btn-add-bump:hover{background:#1a8a4a}
+    .bump-actions .btn-skip-bump{flex:1;background:var(--line);color:var(--text);padding:14px;border-radius:12px;font-weight:600;border:none;cursor:pointer;transition:background .3s}
+    .bump-actions .btn-skip-bump:hover{background:#d5cec6}
 
     /* ============================================================
        TESTIMONIOS
@@ -233,71 +367,24 @@
     .footer-credits .credit-btn:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3);color:#fff;transform:translateY(-2px)}
 
     /* ============================================================
-       BOTÓN VOLVER ARRIBA - se oculta con el footer
+       BOTÓN VOLVER ARRIBA
        ============================================================ */
     .back-top{
-      position:fixed;
-      bottom:100px;
-      right:20px;
-      width:48px;
-      height:48px;
-      border-radius:50%;
-      background:var(--primary);
-      color:#fff;
-      font-size:22px;
-      border:none;
-      cursor:pointer;
-      z-index:80;
-      opacity:0;
-      visibility:hidden;
-      transform:translateY(20px);
-      transition:all .4s;
-      box-shadow:0 4px 20px rgba(158,47,32,.35);
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      position:fixed;bottom:100px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--primary);color:#fff;font-size:22px;border:none;cursor:pointer;z-index:80;opacity:0;visibility:hidden;transform:translateY(20px);transition:all .4s;box-shadow:0 4px 20px rgba(158,47,32,.35);display:flex;align-items:center;justify-content:center;
     }
-    .back-top.visible{
-      opacity:1;
-      visibility:visible;
-      transform:translateY(0);
-    }
-    .back-top.hidden-footer{
-      opacity:0 !important;
-      visibility:hidden !important;
-      transform:translateY(20px) !important;
-      pointer-events:none !important;
-    }
+    .back-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+    .back-top.hidden-footer{opacity:0 !important;visibility:hidden !important;transform:translateY(20px) !important;pointer-events:none !important}
     .back-top:hover{background:var(--primary2);transform:translateY(-3px) scale(1.05)}
 
     /* ============================================================
-       WHATSAPP FLOTANTE - se oculta con el footer
+       WHATSAPP FLOTANTE
        ============================================================ */
     .whatsapp-float{
-      position:fixed;
-      right:20px;
-      bottom:20px;
-      width:58px;
-      height:58px;
-      border-radius:50%;
-      background:#25D366;
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-decoration:none;
-      z-index:90;
-      box-shadow:0 8px 24px rgba(0,0,0,.22);
-      transition:transform .25s ease, opacity .25s ease, visibility .25s ease;
+      position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;z-index:90;box-shadow:0 8px 24px rgba(0,0,0,.22);transition:transform .25s ease, opacity .25s ease, visibility .25s ease;
     }
     .whatsapp-float:hover{transform:scale(1.08)}
     .whatsapp-float svg{width:31px;height:31px;fill:currentColor}
-    .whatsapp-float.hidden-footer{
-      opacity:0 !important;
-      visibility:hidden !important;
-      pointer-events:none !important;
-      transform:translateY(15px) scale(.9) !important;
-    }
+    .whatsapp-float.hidden-footer{opacity:0 !important;visibility:hidden !important;pointer-events:none !important;transform:translateY(15px) scale(.9) !important}
 
     /* ============================================================
        CARRITO Y MODAL
@@ -327,17 +414,27 @@
     .checkout{width:100%;background:var(--green);color:#fff;padding:14px;border-radius:12px;font-weight:900;border:none;cursor:pointer;transition:background .3s,transform .2s}
     .checkout:hover{background:#1a8a4a;transform:scale(1.01)}
     .note{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
+
+    /* MODAL CHECKOUT */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:120;display:none;align-items:center;justify-content:center;padding:20px}
-    .modal.open{display:flex}.modal-box{background:#fff;border-radius:22px;width:min(520px,100%);padding:24px;max-height:90vh;overflow:auto}
-    .modal-box h2{margin-bottom:5px}.modal-box>p{color:var(--muted);font-size:14px;margin-bottom:18px}
-    .form{display:grid;gap:12px}.form label{font-size:13px;font-weight:800}
+    .modal.open{display:flex}
+    .modal-box{background:#fff;border-radius:22px;width:min(520px,100%);padding:24px;max-height:90vh;overflow:auto;position:relative}
+    .modal-close{
+      position:absolute;top:14px;right:18px;font-size:28px;background:none;border:none;cursor:pointer;color:var(--muted);transition:color .3s;padding:0 6px;line-height:1;
+    }
+    .modal-close:hover{color:var(--dark)}
+    .modal-box h2{margin-bottom:5px;padding-right:30px}
+    .modal-box>p{color:var(--muted);font-size:14px;margin-bottom:18px}
+    .form{display:grid;gap:12px}
+    .form label{font-size:13px;font-weight:800}
     .form input,.form select,.form textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:12px;background:#fff;transition:border .3s}
     .form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:var(--primary)}
     .form textarea{min-height:80px;resize:vertical}
     .delivery{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .delivery label{border:1px solid var(--line);padding:12px;border-radius:11px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:border .3s}
     .delivery label:hover{border-color:var(--primary)}
-    .delivery input{width:auto}.hidden{display:none!important}
+    .delivery input{width:auto}
+    .hidden{display:none!important}
     .success{text-align:center;padding:25px}.success .icon{font-size:52px}
 
     /* ============================================================
@@ -346,8 +443,8 @@
     @media(max-width:900px){
       .products{grid-template-columns:repeat(2,1fr)}
       .testimonios-grid{grid-template-columns:1fr 1fr}
-      .hero-box{min-height:440px}
-      .hero-content{padding:40px 25px}
+      .hero{min-height:60vh}
+      .hero-content{padding:30px 20px}
       .hero-logo img{height:130px}
       .encontranos-box{grid-template-columns:1fr}
       .encontranos-info{padding:30px 25px;order:2}
@@ -358,18 +455,24 @@
     }
     @media(max-width:560px){
       .nav{height:68px}
-      .brand span{display:none}
+      /* Mostrar hamburguesa */
+      .hamburger{display:flex}
+      /* Ocultar texto "Carrito" y mostrar solo ícono */
+      .cart-btn .cart-text{display:none}
+      .cart-btn .cart-icon-only{display:inline}
+      .cart-btn{padding:11px 13px;gap:6px}
       .brand img{height:40px}
+      .brand strong{font-size:15px}
+      .brand span{font-size:10px}
       .products{grid-template-columns:1fr 1fr;gap:10px}
       .product-img{height:140px}
       .product-body{padding:12px}
       .product h3{font-size:15px}
       .price{font-size:18px}
-      .hero{margin-top:12px}
-      .hero-box{border-radius:20px;min-height:380px}
-      .hero-content{padding:20px 15px}
+      .hero{margin-top:0;min-height:55vh}
+      .hero-content{padding:20px 15px;margin-top:-20px}
       .hero p{font-size:14px}
-      .hero-logo img{height:80px;max-width:200px}
+      .hero-logo img{height:80px;max-width:180px}
       .section-head h2{font-size:24px}
       .banner-box{padding:18px 20px;flex-direction:column;text-align:center}
       .banner-box .oferta-text{justify-content:center}
@@ -393,13 +496,20 @@
       .destacado-card img{height:90px}
       .back-top{bottom:85px;right:15px;width:42px;height:42px;font-size:18px}
       .top-carousel::after{display:none}
+      .mobile-menu{top:68px}
+      .order-bump-box{padding:20px}
+      .bump-product{flex-direction:column;text-align:center}
+      .bump-actions{flex-direction:column}
+    }
+    @media(max-width:400px){
+      .products{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
 
   <!-- ============================================================
-       TOP CARRUSEL INFINITO - ESTILO MARQUESINA LED
+       TOP CARRUSEL
        ============================================================ -->
   <div class="top-carousel" id="topCarousel">
     <div class="top-track" id="topTrack">
@@ -421,31 +531,49 @@
     <nav class="nav">
       <a class="brand" href="#">
         <img src="https://iili.io/CLyKwYX.png" alt="CARNICERIA LUJAN">
-        <div><strong>CARNICERIA LUJAN</strong><span>Carnes · Pollo · Cerdo · Embutidos</span></div>
+        <div>
+          <strong>CARNICERIA LUJAN</strong>
+          <span>Carnes · Pollo · Cerdo · Embutidos</span>
+        </div>
       </a>
-      <button class="cart-btn" onclick="openCart()">🛒 Carrito <span class="cart-count" id="cartCount">0</span></button>
+      <div class="nav-right">
+        <!-- HAMBURGUESA -->
+        <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú" onclick="toggleMobileMenu()">
+          <span></span><span></span><span></span>
+        </button>
+        <button class="cart-btn" onclick="openCart()">
+          <span class="cart-text">🛒 Carrito</span>
+          <span class="cart-icon-only">🛒</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
     </nav>
+    <!-- Menú móvil desplegable -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#tienda" onclick="closeMobileMenu()">🛒 Tienda</a>
+      <a href="#testimonios" onclick="closeMobileMenu()">⭐ Testimonios</a>
+      <a href="#encontranos" onclick="closeMobileMenu()">📍 Encontranos</a>
+      <div class="mobile-categories" id="mobileCategories"></div>
+    </div>
   </header>
 
   <!-- ============================================================
-       HERO
+       HERO - FULL WIDTH CON DEGRADADO
        ============================================================ -->
   <section class="hero">
-    <div class="hero-box">
-      <div class="hero-content">
-        <div class="hero-logo">
-          <img src="https://iili.io/CLyKwYX.png" alt="CARNICERIA LUJAN">
-        </div>
-        <span class="eyebrow">PRODUCTOS FRESCOS · PEDIDO ONLINE</span>
-        <h1>La carne que llega a tu mesa.</h1>
-        <p>Elegí tus cortes, armá tu pedido y mandalo directamente por WhatsApp. Fácil, rápido y sin vueltas.</p>
-        <button class="primary" onclick="document.getElementById('tienda').scrollIntoView()">🛒 Comprar ahora</button>
+    <div class="hero-content">
+      <div class="hero-logo">
+        <img src="https://iili.io/CLyKwYX.png" alt="CARNICERIA LUJAN">
       </div>
+      <span class="eyebrow">PRODUCTOS FRESCOS · PEDIDO ONLINE</span>
+      <h1>La carne que llega a tu mesa.</h1>
+      <p>Elegí tus cortes, armá tu pedido y mandalo directamente por WhatsApp. Fácil, rápido y sin vueltas.</p>
+      <button class="primary" onclick="document.getElementById('tienda').scrollIntoView({behavior:'smooth'})">🛒 Comprar ahora</button>
     </div>
   </section>
 
   <!-- ============================================================
-       CARRUSEL DE BANNERS DE OFERTAS
+       BANNER OFERTAS
        ============================================================ -->
   <section class="banner-ofertas">
     <div class="banner-slider" id="bannerSlider">
@@ -458,7 +586,7 @@
               <div class="oferta-desc">En chorizos parrilleros y morcillas · Solo por tiempo limitado</div>
             </div>
           </div>
-          <button class="oferta-boton" onclick="document.getElementById('tienda').scrollIntoView()">Ver ofertas →</button>
+          <button class="oferta-boton" onclick="document.getElementById('tienda').scrollIntoView({behavior:'smooth'})">Ver ofertas →</button>
         </div>
       </div>
       <div class="banner-slide">
@@ -470,7 +598,7 @@
               <div class="oferta-desc">Bife de chorizo, vacío y asado · Calidad garantizada</div>
             </div>
           </div>
-          <button class="oferta-boton" onclick="document.getElementById('tienda').scrollIntoView()">Ver ofertas →</button>
+          <button class="oferta-boton" onclick="document.getElementById('tienda').scrollIntoView({behavior:'smooth'})">Ver ofertas →</button>
         </div>
       </div>
       <div class="banner-slide">
@@ -482,7 +610,7 @@
               <div class="oferta-desc">Carne + chorizos + morcilla + achuras · Ideal para el fin de semana</div>
             </div>
           </div>
-          <button class="oferta-boton" onclick="document.getElementById('tienda').scrollIntoView()">Ver ofertas →</button>
+          <button class="oferta-boton" onclick="document.getElementById('tienda').scrollIntoView({behavior:'smooth'})">Ver ofertas →</button>
         </div>
       </div>
     </div>
@@ -494,7 +622,7 @@
   </section>
 
   <!-- ============================================================
-       CORTES DESTACADOS (SLIDER)
+       DESTACADOS
        ============================================================ -->
   <section class="destacados">
     <div class="destacados-header">
@@ -556,7 +684,7 @@
   <!-- ============================================================
        TESTIMONIOS
        ============================================================ -->
-  <section class="testimonios">
+  <section class="testimonios" id="testimonios">
     <div class="section-head"><div><h2>⭐ Lo que dicen <span style="color:var(--primary)">nuestros clientes</span></h2></div></div>
     <div class="testimonios-grid">
       <div class="testimonio-card">
@@ -580,7 +708,7 @@
   <!-- ============================================================
        ENCONTRANOS
        ============================================================ -->
-  <section class="encontranos">
+  <section class="encontranos" id="encontranos">
     <div class="encontranos-box">
       <div class="encontranos-info">
         <span class="badge">📍 Visitanos</span>
@@ -640,7 +768,7 @@
   </footer>
 
   <!-- ============================================================
-       BOTÓN VOLVER ARRIBA (se oculta con el footer)
+       BOTÓN VOLVER ARRIBA
        ============================================================ -->
   <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">↑</button>
 
@@ -666,10 +794,11 @@
   </div>
 
   <!-- ============================================================
-       MODAL CHECKOUT
+       MODAL CHECKOUT - CON X
        ============================================================ -->
   <div class="modal" id="checkoutModal">
     <div class="modal-box">
+      <button class="modal-close" onclick="closeCheckout()" aria-label="Cerrar">×</button>
       <div id="checkoutContent">
         <h2>Finalizar pedido</h2>
         <p>Completá tus datos y te llevamos el pedido a WhatsApp.</p>
@@ -692,7 +821,33 @@
   </div>
 
   <!-- ============================================================
-       WHATSAPP FLOTANTE (se oculta con el footer)
+       ORDER BUMP - se muestra al hacer clic en "Continuar con el pedido"
+       ============================================================ -->
+  <div class="order-bump-overlay" id="orderBumpOverlay">
+    <div class="order-bump-box">
+      <button class="close-bump" onclick="closeBumpAndContinue()" aria-label="Cerrar">×</button>
+      <span class="bump-badge">🔥 OFERTA ESPECIAL</span>
+      <h3>¡Llevá esto también!</h3>
+      <p class="bump-sub">Agregá este producto a tu pedido con un descuento especial</p>
+      <div class="bump-product" id="bumpProduct">
+        <img id="bumpImg" src="" alt="Producto sugerido">
+        <div class="bump-info">
+          <h4 id="bumpName">Producto</h4>
+          <div>
+            <span class="bump-price" id="bumpPrice">$0</span>
+            <span class="bump-original" id="bumpOriginal">$0</span>
+          </div>
+        </div>
+      </div>
+      <div class="bump-actions">
+        <button class="btn-add-bump" onclick="addBumpToCart()">✅ Agregar oferta</button>
+        <button class="btn-skip-bump" onclick="closeBumpAndContinue()">Ahora no</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       WHATSAPP FLOTANTE
        ============================================================ -->
   <a
     class="whatsapp-float"
@@ -712,17 +867,17 @@
        ============================================================ -->
   <script>
     // ============================================================
-    // CONFIGURACIÓN DEL NEGOCIO
+    // CONFIGURACIÓN
     // ============================================================
     const BUSINESS = {
       name: "CARNICERIA LUJAN",
-      whatsapp: "543624000000", // CAMBIAR por el WhatsApp real, sin + ni espacios.
+      whatsapp: "543624000000", // CAMBIAR por el WhatsApp real
       deliveryFee: 0,
       freeShippingThreshold: 35000
     };
 
     // ============================================================
-    // PRODUCTOS - Con nueva imagen para pata muslo
+    // PRODUCTOS
     // ============================================================
     const products = [
       {id:1, name:"Asado", cat:"Carne vacuna", price:8500, unit:"kg", img:"https://www.proveeduriapiaf.com.ar/wp-content/uploads/8053_asado_de_tira_corte_ventana-2.png", desc:"Corte ideal para la parrilla."},
@@ -744,16 +899,47 @@
     // ============================================================
     let cart = JSON.parse(localStorage.getItem("carniceria_cart") || "[]");
     let currentCategory = "Todos";
+    let isBumpShowing = false;
     const money = n => new Intl.NumberFormat("es-AR",{style:"currency",currency:"ARS",maximumFractionDigits:0}).format(n);
+
+    // ============================================================
+    // MENÚ HAMBURGUESA
+    // ============================================================
+    function toggleMobileMenu(){
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.getElementById('hamburgerBtn');
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+    function closeMobileMenu(){
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.getElementById('hamburgerBtn').classList.remove('open');
+    }
+    document.addEventListener('click', function(e){
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.getElementById('hamburgerBtn');
+      if(!menu.contains(e.target) && !btn.contains(e.target) && menu.classList.contains('open')){
+        closeMobileMenu();
+      }
+    });
 
     // ============================================================
     // FUNCIONES DEL CARRITO
     // ============================================================
+    function renderMobileCategories(){
+      const cats = ["Todos", ...new Set(products.map(p=>p.cat))];
+      const container = document.getElementById("mobileCategories");
+      container.innerHTML = cats.map(c =>
+        `<button class="${c===currentCategory?'active':''}" onclick="filterCategory('${c.replaceAll("'","\\'")}'); closeMobileMenu();">${c}</button>`
+      ).join("");
+    }
+
     function categoriesRender(){
       const cats = ["Todos", ...new Set(products.map(p=>p.cat))];
       document.getElementById("categories").innerHTML = cats.map(c =>
         `<button class="cat ${c===currentCategory?'active':''}" onclick="filterCategory('${c.replaceAll("'","\\'")}')">${c}</button>`
       ).join("");
+      renderMobileCategories();
     }
 
     function filterCategory(cat){ currentCategory=cat; categoriesRender(); renderProducts(); }
@@ -775,8 +961,26 @@
         </article>`).join("");
     }
 
-    function addToCart(id){ const item=cart.find(x=>x.id===id); if(item) item.qty++; else cart.push({id,qty:1}); saveCart(); openCart(); }
-    function changeQty(id,delta){ const item=cart.find(x=>x.id===id); if(!item)return; item.qty+=delta; if(item.qty<=0) cart=cart.filter(x=>x.id!==id); saveCart(); }
+    function addToCart(id){
+      const item = cart.find(x=>x.id===id);
+      if(item){
+        item.qty++;
+        saveCart();
+        openCart();
+      } else {
+        cart.push({id, qty: 1});
+        saveCart();
+        openCart();
+      }
+    }
+
+    function changeQty(id,delta){
+      const item=cart.find(x=>x.id===id);
+      if(!item)return;
+      item.qty+=delta;
+      if(item.qty<=0) cart=cart.filter(x=>x.id!==id);
+      saveCart();
+    }
     function removeItem(id){cart=cart.filter(x=>x.id!==id);saveCart()}
     function saveCart(){localStorage.setItem("carniceria_cart",JSON.stringify(cart));renderCart()}
 
@@ -824,8 +1028,94 @@
 
     function openCart(){document.getElementById("cartOverlay").classList.add("open");renderCart()}
     function closeCart(){document.getElementById("cartOverlay").classList.remove("open")}
-    function openCheckout(){ if(!cart.length){alert("Agregá al menos un producto al carrito.");return} closeCart();document.getElementById("checkoutModal").classList.add("open"); }
-    function toggleAddress(){ const method=document.querySelector('input[name="method"]:checked').value; document.getElementById("addressWrap").classList.toggle("hidden",method!=="delivery"); }
+
+    // ============================================================
+    // ORDER BUMP - se muestra al hacer clic en "Continuar con el pedido"
+    // ============================================================
+    function showBump(){
+      if(cart.length === 0) return;
+      if(isBumpShowing) return;
+      
+      // Buscar productos en el carrito y sugerir uno relacionado
+      const cartProductIds = cart.map(item => item.id);
+      let candidates = products.filter(p => !cartProductIds.includes(p.id));
+      
+      if(candidates.length === 0) {
+        // Si no hay productos para sugerir, ir directamente al checkout
+        openCheckoutModal();
+        return;
+      }
+      
+      // Seleccionar uno aleatorio
+      const bumpProduct = candidates[Math.floor(Math.random() * candidates.length)];
+      
+      // Mostrar el bump
+      document.getElementById("bumpImg").src = bumpProduct.img;
+      document.getElementById("bumpName").textContent = bumpProduct.name;
+      const discountPrice = Math.round(bumpProduct.price * 0.85); // 15% off
+      document.getElementById("bumpPrice").textContent = money(discountPrice);
+      document.getElementById("bumpOriginal").textContent = money(bumpProduct.price);
+      
+      // Guardar el precio con descuento en el botón
+      document.querySelector(".btn-add-bump").dataset.bumpPrice = discountPrice;
+      document.querySelector(".btn-add-bump").dataset.bumpId = bumpProduct.id;
+      
+      isBumpShowing = true;
+      document.getElementById("orderBumpOverlay").classList.add("open");
+    }
+
+    function addBumpToCart(){
+      const btn = document.querySelector(".btn-add-bump");
+      const bumpId = parseInt(btn.dataset.bumpId);
+      const bumpPrice = parseInt(btn.dataset.bumpPrice);
+      
+      // Verificar si ya está en el carrito
+      const existing = cart.find(x => x.id === bumpId);
+      if(existing){
+        existing.qty += 1;
+      } else {
+        cart.push({id: bumpId, qty: 1});
+      }
+      saveCart();
+      closeBumpAndContinue();
+    }
+
+    function closeBumpAndContinue(){
+      document.getElementById("orderBumpOverlay").classList.remove("open");
+      isBumpShowing = false;
+      // Continuar con el checkout
+      openCheckoutModal();
+    }
+
+    // ============================================================
+    // CHECKOUT
+    // ============================================================
+    function openCheckout(){
+      if(!cart.length){
+        alert("Agregá al menos un producto al carrito.");
+        return;
+      }
+      closeCart();
+      // Mostrar order bump antes del checkout
+      showBump();
+    }
+
+    function openCheckoutModal(){
+      document.getElementById("checkoutModal").classList.add("open");
+    }
+
+    function closeCheckout(){
+      document.getElementById("checkoutModal").classList.remove("open");
+    }
+    
+    document.getElementById("checkoutModal").addEventListener("click", function(e){
+      if(e.target === this) closeCheckout();
+    });
+    
+    function toggleAddress(){
+      const method=document.querySelector('input[name="method"]:checked').value;
+      document.getElementById("addressWrap").classList.toggle("hidden",method!=="delivery");
+    }
 
     function sendWhatsApp(e){
       e.preventDefault();
@@ -848,13 +1138,14 @@
       if(method==="delivery") msg+=`📍 Dirección: ${address}\n`;
       if(notes) msg+=`📝 Observaciones: ${notes}\n`;
       msg+=`\n¡Gracias!`;
-      if(!BUSINESS.whatsapp || BUSINESS.whatsapp==="543624000000"){ alert("Configurá el número de WhatsApp en BUSINESS.whatsapp dentro del código antes de publicar la web."); return; }
+      if(!BUSINESS.whatsapp || BUSINESS.whatsapp==="543624000000"){ alert("Configurá el número de WhatsApp en BUSINESS.whatsapp dentro del código."); return; }
       const url=`https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(msg)}`;
       window.open(url,"_blank");
+      closeCheckout();
     }
 
     // ============================================================
-    // WHATSAPP FLOTANTE - se oculta con el footer
+    // WHATSAPP FLOTANTE
     // ============================================================
     const whatsappFloat = document.getElementById("whatsappFloat");
     const backTop = document.getElementById("backTop");
@@ -870,12 +1161,11 @@
       } else { 
         whatsappFloat.addEventListener("click", function(e){ 
           e.preventDefault(); 
-          alert("Configurá el número de WhatsApp en BUSINESS.whatsapp dentro del código antes de publicar la web."); 
+          alert("Configurá el número de WhatsApp en BUSINESS.whatsapp dentro del código."); 
         }); 
       }
     }
 
-    // Observador para ocultar botones flotantes al llegar al footer
     if(footer && whatsappFloat && backTop){
       const footerObserver = new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
@@ -911,7 +1201,7 @@
     startBannerCarousel();
 
     // ============================================================
-    // BOTÓN VOLVER ARRIBA - scroll
+    // BOTÓN VOLVER ARRIBA
     // ============================================================
     window.addEventListener('scroll', () => {
       backTop.classList.toggle('visible', window.scrollY > 400);
