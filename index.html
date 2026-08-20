@@ -417,7 +417,7 @@
     .checkout svg{width:22px;height:22px;fill:currentColor}
     .note{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
 
-    /* MODAL CHECKOUT - con X bien visible */
+    /* MODAL CHECKOUT */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:120;display:none;align-items:center;justify-content:center;padding:20px}
     .modal.open{display:flex}
     .modal-box{
@@ -829,7 +829,7 @@
   </div>
 
   <!-- ============================================================
-       MODAL CHECKOUT - CON X BIEN VISIBLE
+       MODAL CHECKOUT
        ============================================================ -->
   <div class="modal" id="checkoutModal">
     <div class="modal-box">
@@ -888,7 +888,7 @@
   </div>
 
   <!-- ============================================================
-       WHATSAPP FLOTANTE - con logo oficial
+       WHATSAPP FLOTANTE
        ============================================================ -->
   <a
     class="whatsapp-float"
@@ -918,21 +918,53 @@
     };
 
     // ============================================================
-    // PRODUCTOS
+    // PRODUCTOS - Más variedad de carnes crudas y almacén
     // ============================================================
     const products = [
+      // ===== CARNES VACUNAS =====
       {id:1, name:"Asado", cat:"Carne vacuna", price:8500, unit:"kg", img:"https://www.proveeduriapiaf.com.ar/wp-content/uploads/8053_asado_de_tira_corte_ventana-2.png", desc:"Corte ideal para la parrilla."},
       {id:2, name:"Vacío", cat:"Carne vacuna", price:9200, unit:"kg", img:"https://carneya.com.ar/wp-content/uploads/2024/03/Tezza-7067.jpg", desc:"Ideal para horno o parrilla."},
       {id:3, name:"Matambre", cat:"Carne vacuna", price:9800, unit:"kg", img:"https://pampa-brava.com.ar/wp-content/uploads/2020/09/matambre-2.jpg", desc:"Perfecto para preparar relleno."},
       {id:4, name:"Bife de chorizo", cat:"Carne vacuna", price:12500, unit:"kg", img:"https://i1.wp.com/files.agro20.com.br/uploads/2019/12/Bife-de-chorizo-1.jpg?resize=1024%2C682&ssl=1", desc:"Corte premium y sabroso."},
+      {id:13, name:"Costillar", cat:"Carne vacuna", price:7800, unit:"kg", img:"https://carneslujan.com.ar/wp-content/uploads/2021/04/costillar-1.jpg", desc:"Con hueso, ideal para parrilla."},
+      {id:14, name:"Falda parrillera", cat:"Carne vacuna", price:6500, unit:"kg", img:"https://www.frigorificosada.com.ar/img/falda.webp", desc:"Corte con mucha grasa, perfecto para la parrilla."},
+      {id:15, name:"Tapa de asado", cat:"Carne vacuna", price:8900, unit:"kg", img:"https://www.frigorificosada.com.ar/img/tapa_asado.webp", desc:"Corte jugoso y sabroso."},
+      {id:16, name:"Cuadril", cat:"Carne vacuna", price:10500, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/cuadril-1.jpg", desc:"Corte magro, ideal para milanesas."},
+      {id:17, name:"Lomo", cat:"Carne vacuna", price:14000, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/lomo-1.jpg", desc:"El corte más tierno y premium."},
+      {id:18, name:"Paleta", cat:"Carne vacuna", price:7200, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/paleta-1.jpg", desc:"Ideal para guisos y estofados."},
+      {id:19, name:"Nalga", cat:"Carne vacuna", price:9500, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/nalga-1.jpg", desc:"Perfecta para milanesas."},
+      {id:20, name:"Entraña", cat:"Carne vacuna", price:11800, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/entrana-1.jpg", desc:"Corte con mucho sabor, ideal para parrilla."},
+      {id:21, name:"Tira de asado", cat:"Carne vacuna", price:8200, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/tira-de-asado-1.jpg", desc:"Clásico de la parrilla argentina."},
+      
+      // ===== POLLO =====
       {id:5, name:"Pechuga de pollo", cat:"Pollo", price:6200, unit:"kg", img:"https://chicagosteakguy.com/cdn/shop/products/AdobeStock_83103702_2160x.jpg?v=1595704519", desc:"Fresca y lista para cocinar."},
-      {id:6, name:"Pata muslo", cat:"Pollo", price:4200, unit:"kg", img:"https://iili.io/CQ3ArHF.png", desc:"Una opción rendidora."},
+      {id:6, name:"Pata muslo", cat:"Pollo", price:4200, unit:"kg", img:"https://static.vecteezy.com/system/resources/previews/041/031/219/non_2x/ai-generated-raw-chicken-thighs-isolated-on-white-background-free-photo.jpg", desc:"Una opción rendidora."},
+      
+      // ===== CERDO =====
       {id:7, name:"Bondiola de cerdo", cat:"Cerdo", price:7600, unit:"kg", img:"https://acdn-us.mitiendanube.com/stores/001/924/637/products/bondiola-31d40833695660469417341841029894-640-0.webp", desc:"Tierna y excelente para horno."},
       {id:8, name:"Costeleta de cerdo", cat:"Cerdo", price:6900, unit:"kg", img:"https://img.cdn4dd.com/cdn-cgi/image/fit%3Dcontain%2Cwidth%3D1200%2Cheight%3D672%2Cformat%3Dauto/https%3A/doordash-static.s3.amazonaws.com/media/photosV2/f8b46bff-678a-469c-86f4-2619e8a22c0d-retina-large.jpg", desc:"Ideal para plancha o parrilla."},
+      {id:22, name:"Peceto de cerdo", cat:"Cerdo", price:6500, unit:"kg", img:"https://www.carneslujan.com.ar/wp-content/uploads/2021/04/peceto-1.jpg", desc:"Corte magro y sabroso."},
+      
+      // ===== EMBUTIDOS =====
       {id:9, name:"Chorizo parrillero", cat:"Embutidos", price:5800, unit:"kg", img:"https://www.labutcheria.com/storage/products/RO6M92FZW4LgWxjUl3aTIjAPqPjbsGiw4EVVB4iz.jpeg", desc:"Clásico para la parrilla."},
       {id:10, name:"Morcilla", cat:"Embutidos", price:5200, unit:"kg", img:"https://dcdn-us.mitiendanube.com/stores/001/271/139/products/morcilla1-ff6e56bec7e5217bc015948465025031-480-0.webp", desc:"Para completar la parrillada."},
+      
+      // ===== ACHURAS =====
       {id:11, name:"Mollejas", cat:"Achuras", price:10500, unit:"kg", img:"https://www.frigorificosada.com.ar/img/menudencia.webp", desc:"Un clásico de la parrilla."},
-      {id:12, name:"Combo Parrillero", cat:"Combos", price:32000, unit:"combo", img:"https://carneya.com.ar/wp-content/uploads/2024/03/Tezza-7067.jpg", desc:"Carne + chorizos + morcilla + achuras."}
+      
+      // ===== COMBOS =====
+      {id:12, name:"Combo Parrillero", cat:"Combos", price:32000, unit:"combo", img:"https://carneya.com.ar/wp-content/uploads/2024/03/Tezza-7067.jpg", desc:"Carne + chorizos + morcilla + achuras."},
+      
+      // ===== ALMACÉN / DESPENSA =====
+      {id:23, name:"Carbón para parrilla", cat:"Almacén", price:4500, unit:"bolsa", img:"https://http2.mlstatic.com/D_NQ_NP_862649-MLA72854280852_112023-O.webp", desc:"Bolsa de carbón, ideal para tu parrilla."},
+      {id:24, name:"Sal parrillera", cat:"Almacén", price:800, unit:"kg", img:"https://http2.mlstatic.com/D_NQ_NP_862907-MLA51179117725_082022-O.webp", desc:"Sal gruesa para la parrilla."},
+      {id:25, name:"Chimichurri", cat:"Almacén", price:650, unit:"pote", img:"https://http2.mlstatic.com/D_NQ_NP_807584-MLA52274826231_112022-O.webp", desc:"El clásico aderezo para carnes."},
+      {id:26, name:"Mayonesa", cat:"Almacén", price:1200, unit:"unidad", img:"https://http2.mlstatic.com/D_NQ_NP_610684-MLA52735816257_122022-O.webp", desc:"Mayonesa cremosa, ideal para acompañar."},
+      {id:27, name:"Ketchup", cat:"Almacén", price:1100, unit:"unidad", img:"https://http2.mlstatic.com/D_NQ_NP_952647-MLA51445279001_092022-O.webp", desc:"Salsa de tomate para tus comidas."},
+      {id:28, name:"Mostaza", cat:"Almacén", price:1000, unit:"unidad", img:"https://http2.mlstatic.com/D_NQ_NP_637786-MLA51451054576_092022-O.webp", desc:"Mostaza clásica para acompañar."},
+      {id:29, name:"Huevos", cat:"Almacén", price:3200, unit:"docena", img:"https://http2.mlstatic.com/D_NQ_NP_841806-MLA72241278763_102023-O.webp", desc:"Huevos frescos, ideales para cualquier comida."},
+      {id:30, name:"Papas para fritas", cat:"Almacén", price:2500, unit:"kg", img:"https://http2.mlstatic.com/D_NQ_NP_833649-MLA51447274300_092022-O.webp", desc:"Papas seleccionadas, ideales para fritas."},
+      {id:31, name:"Ensalada lista", cat:"Almacén", price:1800, unit:"unidad", img:"https://http2.mlstatic.com/D_NQ_NP_695612-MLA72040007826_102023-O.webp", desc:"Ensalada fresca ya preparada."}
     ];
 
     // ============================================================
