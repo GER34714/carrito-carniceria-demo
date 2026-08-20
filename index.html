@@ -723,7 +723,7 @@
         </div>
         <div class="info-row">
           <span class="icon">📞</span>
-          <span>+54 9 362 123-4567</span>
+          <span>+54 9 362 522-7233</span>
         </div>
         <div class="info-row">
           <span class="icon">🕐</span>
@@ -871,7 +871,7 @@
     // ============================================================
     const BUSINESS = {
       name: "CARNICERIA LUJAN",
-      whatsapp: "543624000000", // CAMBIAR por el WhatsApp real
+      whatsapp: "5493625227233",
       deliveryFee: 0,
       freeShippingThreshold: 35000
     };
@@ -1030,33 +1030,28 @@
     function closeCart(){document.getElementById("cartOverlay").classList.remove("open")}
 
     // ============================================================
-    // ORDER BUMP - se muestra al hacer clic en "Continuar con el pedido"
+    // ORDER BUMP
     // ============================================================
     function showBump(){
       if(cart.length === 0) return;
       if(isBumpShowing) return;
       
-      // Buscar productos en el carrito y sugerir uno relacionado
       const cartProductIds = cart.map(item => item.id);
       let candidates = products.filter(p => !cartProductIds.includes(p.id));
       
       if(candidates.length === 0) {
-        // Si no hay productos para sugerir, ir directamente al checkout
         openCheckoutModal();
         return;
       }
       
-      // Seleccionar uno aleatorio
       const bumpProduct = candidates[Math.floor(Math.random() * candidates.length)];
       
-      // Mostrar el bump
       document.getElementById("bumpImg").src = bumpProduct.img;
       document.getElementById("bumpName").textContent = bumpProduct.name;
-      const discountPrice = Math.round(bumpProduct.price * 0.85); // 15% off
+      const discountPrice = Math.round(bumpProduct.price * 0.85);
       document.getElementById("bumpPrice").textContent = money(discountPrice);
       document.getElementById("bumpOriginal").textContent = money(bumpProduct.price);
       
-      // Guardar el precio con descuento en el botón
       document.querySelector(".btn-add-bump").dataset.bumpPrice = discountPrice;
       document.querySelector(".btn-add-bump").dataset.bumpId = bumpProduct.id;
       
@@ -1069,7 +1064,6 @@
       const bumpId = parseInt(btn.dataset.bumpId);
       const bumpPrice = parseInt(btn.dataset.bumpPrice);
       
-      // Verificar si ya está en el carrito
       const existing = cart.find(x => x.id === bumpId);
       if(existing){
         existing.qty += 1;
@@ -1083,7 +1077,6 @@
     function closeBumpAndContinue(){
       document.getElementById("orderBumpOverlay").classList.remove("open");
       isBumpShowing = false;
-      // Continuar con el checkout
       openCheckoutModal();
     }
 
@@ -1096,7 +1089,6 @@
         return;
       }
       closeCart();
-      // Mostrar order bump antes del checkout
       showBump();
     }
 
@@ -1117,30 +1109,65 @@
       document.getElementById("addressWrap").classList.toggle("hidden",method!=="delivery");
     }
 
+    // ============================================================
+    // ENVÍO DE WHATSAPP CON MENSAJE MEJORADO
+    // ============================================================
     function sendWhatsApp(e){
       e.preventDefault();
       if(!cart.length)return;
-      const name=document.getElementById("name").value.trim();
-      const phone=document.getElementById("phone").value.trim();
-      const method=document.querySelector('input[name="method"]:checked').value;
-      const address=document.getElementById("address").value.trim();
-      const notes=document.getElementById("notes").value.trim();
-      let subtotal=0;
-      const lines=cart.map(item=>{ const p=products.find(x=>x.id===item.id); const total=p.price*item.qty; subtotal+=total; return `• ${p.name} x${item.qty} — ${money(total)}`; }).join("\n");
-      const total = subtotal + (subtotal >= BUSINESS.freeShippingThreshold ? 0 : (BUSINESS.deliveryFee||0));
-      let msg=`Hola ${BUSINESS.name}! 👋 Quiero hacer un pedido.\n\n`;
-      msg+=`👤 Nombre: ${name}\n📱 Teléfono: ${phone}\n\n`;
-      msg+=`🛒 PEDIDO:\n${lines}\n\n`;
-      msg+=`💰 Subtotal: ${money(subtotal)}\n`;
-      msg+=`🚚 Envío: ${subtotal >= BUSINESS.freeShippingThreshold ? "¡GRATIS! 🎉" : "A coordinar"}\n`;
-      msg+=`💰 Total: ${money(total)}\n`;
-      msg+=`🚚 Modalidad: ${method==="delivery"?"Delivery":"Retiro en local"}\n`;
-      if(method==="delivery") msg+=`📍 Dirección: ${address}\n`;
-      if(notes) msg+=`📝 Observaciones: ${notes}\n`;
-      msg+=`\n¡Gracias!`;
-      if(!BUSINESS.whatsapp || BUSINESS.whatsapp==="543624000000"){ alert("Configurá el número de WhatsApp en BUSINESS.whatsapp dentro del código."); return; }
-      const url=`https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(msg)}`;
-      window.open(url,"_blank");
+      
+      const name = document.getElementById("name").value.trim() || "No especificado";
+      const phone = document.getElementById("phone").value.trim() || "No especificado";
+      const method = document.querySelector('input[name="method"]:checked').value;
+      const address = document.getElementById("address").value.trim();
+      const notes = document.getElementById("notes").value.trim();
+      
+      let subtotal = 0;
+      const lines = cart.map(item => { 
+        const p = products.find(x => x.id === item.id); 
+        const total = p.price * item.qty; 
+        subtotal += total; 
+        return `• ${p.name} x${item.qty} — $${new Intl.NumberFormat("es-AR").format(total)}`; 
+      }).join("\n");
+      
+      const total = subtotal + (subtotal >= BUSINESS.freeShippingThreshold ? 0 : (BUSINESS.deliveryFee || 0));
+      const shippingText = subtotal >= BUSINESS.freeShippingThreshold ? "¡GRATIS! 🎉" : "A coordinar";
+      const methodText = method === "delivery" ? "Delivery" : "Retiro en local";
+      
+      // Mensaje mejorado y más ordenado
+      let msg = `Hola ${BUSINESS.name}! 👋 Quiero hacer un pedido.\n\n`;
+      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      msg += `👤 DATOS DEL CLIENTE\n`;
+      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      msg += `Nombre: ${name}\n`;
+      msg += `Teléfono: ${phone}\n\n`;
+      
+      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      msg += `🛒 DETALLE DEL PEDIDO\n`;
+      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      msg += `${lines}\n\n`;
+      
+      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      msg += `💰 TOTALES\n`;
+      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      msg += `Subtotal: $${new Intl.NumberFormat("es-AR").format(subtotal)}\n`;
+      msg += `Envío: ${shippingText}\n`;
+      msg += `Total: $${new Intl.NumberFormat("es-AR").format(total)}\n\n`;
+      
+      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      msg += `🚚 ENTREGA\n`;
+      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      msg += `Modalidad: ${methodText}\n`;
+      if(method === "delivery") {
+        msg += `Dirección: ${address || "No especificada"}\n`;
+      }
+      if(notes) {
+        msg += `\n📝 Observaciones: ${notes}\n`;
+      }
+      msg += `\n¡Gracias! 🙌`;
+      
+      const url = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
       closeCheckout();
     }
 
@@ -1154,15 +1181,14 @@
     function setupFloatingWhatsApp(){
       if(!whatsappFloat) return;
       const number = BUSINESS.whatsapp;
-      if(number && number !== "543624000000"){ 
+      if(number && number !== "5493625227233"){ 
         whatsappFloat.href = `https://wa.me/${number}`; 
         whatsappFloat.target = "_blank"; 
         whatsappFloat.rel = "noopener noreferrer"; 
       } else { 
-        whatsappFloat.addEventListener("click", function(e){ 
-          e.preventDefault(); 
-          alert("Configurá el número de WhatsApp en BUSINESS.whatsapp dentro del código."); 
-        }); 
+        whatsappFloat.href = `https://wa.me/${number}`;
+        whatsappFloat.target = "_blank";
+        whatsappFloat.rel = "noopener noreferrer";
       }
     }
 
@@ -1186,17 +1212,39 @@
     const totalSlides = slides.length;
     const dotsContainer = document.getElementById('bannerDots');
     let bannerInterval;
-    function createDots(){ dotsContainer.innerHTML = ''; slides.forEach((_, i) => { const dot = document.createElement('button'); dot.classList.toggle('active', i === 0); dot.setAttribute('aria-label', `Ir a oferta ${i+1}`); dot.addEventListener('click', () => goToBanner(i)); dotsContainer.appendChild(dot); }); }
-    function goToBanner(index){ if (index < 0) index = totalSlides - 1; if (index >= totalSlides) index = 0; slider.style.transform = `translateX(-${index * 100}%)`; document.querySelectorAll('.banner-dots button').forEach(d => d.classList.remove('active')); document.querySelectorAll('.banner-dots button')[index].classList.add('active'); currentBanner = index; }
+    
+    function createDots(){ 
+      dotsContainer.innerHTML = ''; 
+      slides.forEach((_, i) => { 
+        const dot = document.createElement('button'); 
+        dot.classList.toggle('active', i === 0); 
+        dot.setAttribute('aria-label', `Ir a oferta ${i+1}`); 
+        dot.addEventListener('click', () => goToBanner(i)); 
+        dotsContainer.appendChild(dot); 
+      }); 
+    }
+    
+    function goToBanner(index){ 
+      if (index < 0) index = totalSlides - 1; 
+      if (index >= totalSlides) index = 0; 
+      slider.style.transform = `translateX(-${index * 100}%)`; 
+      document.querySelectorAll('.banner-dots button').forEach(d => d.classList.remove('active')); 
+      document.querySelectorAll('.banner-dots button')[index].classList.add('active'); 
+      currentBanner = index; 
+    }
+    
     function nextBanner(){ goToBanner(currentBanner + 1); }
     function prevBanner(){ goToBanner(currentBanner - 1); }
     function startBannerCarousel(){ bannerInterval = setInterval(nextBanner, 5000); }
     function resetBannerCarousel(){ clearInterval(bannerInterval); startBannerCarousel(); }
+    
     document.getElementById('bannerNext').addEventListener('click', () => { nextBanner(); resetBannerCarousel(); });
     document.getElementById('bannerPrev').addEventListener('click', () => { prevBanner(); resetBannerCarousel(); });
+    
     const bannerSection = document.querySelector('.banner-ofertas');
     bannerSection.addEventListener('mouseenter', () => clearInterval(bannerInterval));
     bannerSection.addEventListener('mouseleave', startBannerCarousel);
+    
     createDots();
     startBannerCarousel();
 
@@ -1214,6 +1262,9 @@
     categoriesRender();
     renderProducts();
     renderCart();
+
+    console.log("✅ CARNICERIA LUJAN - Número configurado: " + BUSINESS.whatsapp);
+    console.log("📱 El mensaje de WhatsApp está mejorado y más ordenado.");
   </script>
 </body>
 </html>
