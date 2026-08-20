@@ -455,9 +455,7 @@
     }
     @media(max-width:560px){
       .nav{height:68px}
-      /* Mostrar hamburguesa */
       .hamburger{display:flex}
-      /* Ocultar texto "Carrito" y mostrar solo ícono */
       .cart-btn .cart-text{display:none}
       .cart-btn .cart-icon-only{display:inline}
       .cart-btn{padding:11px 13px;gap:6px}
@@ -537,7 +535,6 @@
         </div>
       </a>
       <div class="nav-right">
-        <!-- HAMBURGUESA -->
         <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú" onclick="toggleMobileMenu()">
           <span></span><span></span><span></span>
         </button>
@@ -548,7 +545,6 @@
         </button>
       </div>
     </nav>
-    <!-- Menú móvil desplegable -->
     <div class="mobile-menu" id="mobileMenu">
       <a href="#tienda" onclick="closeMobileMenu()">🛒 Tienda</a>
       <a href="#testimonios" onclick="closeMobileMenu()">⭐ Testimonios</a>
@@ -558,7 +554,7 @@
   </header>
 
   <!-- ============================================================
-       HERO - FULL WIDTH CON DEGRADADO
+       HERO
        ============================================================ -->
   <section class="hero">
     <div class="hero-content">
@@ -676,7 +672,6 @@
     <div class="section-head">
       <div><h2>Elegí tus productos</h2><p>Agregá al carrito todo lo que necesitás.</p></div>
     </div>
-
     <div class="categories" id="categories"></div>
     <div class="products" id="products"></div>
   </main>
@@ -794,7 +789,7 @@
   </div>
 
   <!-- ============================================================
-       MODAL CHECKOUT - CON X
+       MODAL CHECKOUT
        ============================================================ -->
   <div class="modal" id="checkoutModal">
     <div class="modal-box">
@@ -821,7 +816,7 @@
   </div>
 
   <!-- ============================================================
-       ORDER BUMP - se muestra al hacer clic en "Continuar con el pedido"
+       ORDER BUMP
        ============================================================ -->
   <div class="order-bump-overlay" id="orderBumpOverlay">
     <div class="order-bump-box">
@@ -849,13 +844,7 @@
   <!-- ============================================================
        WHATSAPP FLOTANTE
        ============================================================ -->
-  <a
-    class="whatsapp-float"
-    id="whatsappFloat"
-    href="#"
-    aria-label="Contactar por WhatsApp"
-    title="Contactar por WhatsApp"
-  >
+  <a class="whatsapp-float" id="whatsappFloat" href="#" aria-label="Contactar por WhatsApp" title="Contactar por WhatsApp">
     <svg viewBox="0 0 32 32" aria-hidden="true">
       <path d="M19.11 17.36c-.27-.14-1.59-.78-1.84-.87-.25-.09-.43-.14-.61.14-.18.27-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29s.98 2.66 1.11 2.84c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.55.57.65.21 1.24.18 1.71.11.52-.08 1.59-.65 1.81-1.27.23-.62.23-1.15.16-1.27-.07-.11-.25-.18-.52-.32z"/>
       <path d="M16.03 3C8.84 3 3 8.72 3 15.77c0 2.25.6 4.45 1.73 6.39L3 29l7.02-1.68a13.2 13.2 0 0 0 6.01 1.44h.01c7.19 0 13.03-5.72 13.03-12.77C29.07 8.72 23.22 3 16.03 3zm0 23.65h-.01c-1.88 0-3.72-.5-5.33-1.44l-.38-.22-4.17 1 1.01-4.02-.25-.41a10.54 10.54 0 0 1-1.62-5.61c0-5.83 4.84-10.57 10.76-10.57 2.87 0 5.57 1.1 7.6 3.1 2.03 2 3.15 4.66 3.15 7.49 0 5.83-4.84 10.57-10.76 10.57z"/>
@@ -1110,63 +1099,56 @@
     }
 
     // ============================================================
-    // ENVÍO DE WHATSAPP CON MENSAJE MEJORADO
+    // ENVÍO DE WHATSAPP - VERSIÓN CORREGIDA CON %0A%0A
     // ============================================================
     function sendWhatsApp(e){
       e.preventDefault();
       if(!cart.length)return;
-      
+
       const name = document.getElementById("name").value.trim() || "No especificado";
       const phone = document.getElementById("phone").value.trim() || "No especificado";
       const method = document.querySelector('input[name="method"]:checked').value;
       const address = document.getElementById("address").value.trim();
       const notes = document.getElementById("notes").value.trim();
-      
+
       let subtotal = 0;
-      const lines = cart.map(item => { 
-        const p = products.find(x => x.id === item.id); 
-        const total = p.price * item.qty; 
-        subtotal += total; 
-        return `• ${p.name} x${item.qty} — $${new Intl.NumberFormat("es-AR").format(total)}`; 
-      }).join("\n");
-      
+      const productLines = cart.map(item => {
+        const p = products.find(x => x.id === item.id);
+        const total = p.price * item.qty;
+        subtotal += total;
+        return `• ${p.name} x${item.qty} — $${new Intl.NumberFormat("es-AR").format(total)}`;
+      });
+
       const total = subtotal + (subtotal >= BUSINESS.freeShippingThreshold ? 0 : (BUSINESS.deliveryFee || 0));
       const shippingText = subtotal >= BUSINESS.freeShippingThreshold ? "¡GRATIS! 🎉" : "A coordinar";
       const methodText = method === "delivery" ? "Delivery" : "Retiro en local";
+
+      // CONSTRUIR EL MENSAJE CON %0A%0A PARA DOBLE SALTO DE LÍNEA
+      let msg = "Hola " + BUSINESS.name + "! 🥳 Quiero hacer un pedido.%0A%0A";
+      msg += "👤 DATOS DEL CLIENTE%0A";
+      msg += "Nombre: " + name + "%0A";
+      msg += "Teléfono: " + phone + "%0A%0A";
       
-      // Mensaje mejorado y más ordenado
-      let msg = `Hola ${BUSINESS.name}! 👋 Quiero hacer un pedido.\n\n`;
-      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-      msg += `👤 DATOS DEL CLIENTE\n`;
-      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-      msg += `Nombre: ${name}\n`;
-      msg += `Teléfono: ${phone}\n\n`;
+      msg += "🛒 DETALLE DEL PEDIDO%0A";
+      msg += productLines.join("%0A");
+      msg += "%0A%0A";
       
-      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-      msg += `🛒 DETALLE DEL PEDIDO\n`;
-      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-      msg += `${lines}\n\n`;
+      msg += "💰 TOTALES%0A";
+      msg += "Subtotal: $" + new Intl.NumberFormat("es-AR").format(subtotal) + "%0A";
+      msg += "Envío: " + shippingText + "%0A";
+      msg += "Total: $" + new Intl.NumberFormat("es-AR").format(total) + "%0A%0A";
       
-      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-      msg += `💰 TOTALES\n`;
-      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-      msg += `Subtotal: $${new Intl.NumberFormat("es-AR").format(subtotal)}\n`;
-      msg += `Envío: ${shippingText}\n`;
-      msg += `Total: $${new Intl.NumberFormat("es-AR").format(total)}\n\n`;
-      
-      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-      msg += `🚚 ENTREGA\n`;
-      msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-      msg += `Modalidad: ${methodText}\n`;
+      msg += "🚚 ENTREGA%0A";
+      msg += "Modalidad: " + methodText + "%0A";
       if(method === "delivery") {
-        msg += `Dirección: ${address || "No especificada"}\n`;
+        msg += "Dirección: " + (address || "No especificada") + "%0A";
       }
       if(notes) {
-        msg += `\n📝 Observaciones: ${notes}\n`;
+        msg += "%0A📝 Observaciones: " + notes + "%0A";
       }
-      msg += `\n¡Gracias! 🙌`;
-      
-      const url = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(msg)}`;
+      msg += "%0A¡Gracias! ❤️";
+
+      const url = "https://wa.me/" + BUSINESS.whatsapp + "?text=" + msg;
       window.open(url, "_blank");
       closeCheckout();
     }
@@ -1182,11 +1164,11 @@
       if(!whatsappFloat) return;
       const number = BUSINESS.whatsapp;
       if(number && number !== "5493625227233"){ 
-        whatsappFloat.href = `https://wa.me/${number}`; 
+        whatsappFloat.href = "https://wa.me/" + number; 
         whatsappFloat.target = "_blank"; 
         whatsappFloat.rel = "noopener noreferrer"; 
       } else { 
-        whatsappFloat.href = `https://wa.me/${number}`;
+        whatsappFloat.href = "https://wa.me/" + number;
         whatsappFloat.target = "_blank";
         whatsappFloat.rel = "noopener noreferrer";
       }
@@ -1218,8 +1200,8 @@
       slides.forEach((_, i) => { 
         const dot = document.createElement('button'); 
         dot.classList.toggle('active', i === 0); 
-        dot.setAttribute('aria-label', `Ir a oferta ${i+1}`); 
-        dot.addEventListener('click', () => goToBanner(i)); 
+        dot.setAttribute('aria-label', "Ir a oferta " + (i+1)); 
+        dot.addEventListener('click', function() { goToBanner(i); }); 
         dotsContainer.appendChild(dot); 
       }); 
     }
@@ -1227,9 +1209,12 @@
     function goToBanner(index){ 
       if (index < 0) index = totalSlides - 1; 
       if (index >= totalSlides) index = 0; 
-      slider.style.transform = `translateX(-${index * 100}%)`; 
-      document.querySelectorAll('.banner-dots button').forEach(d => d.classList.remove('active')); 
-      document.querySelectorAll('.banner-dots button')[index].classList.add('active'); 
+      slider.style.transform = "translateX(-" + (index * 100) + "%)"; 
+      var dots = document.querySelectorAll('.banner-dots button');
+      for(var d = 0; d < dots.length; d++) {
+        dots[d].classList.remove('active');
+      }
+      dots[index].classList.add('active');
       currentBanner = index; 
     }
     
@@ -1238,11 +1223,11 @@
     function startBannerCarousel(){ bannerInterval = setInterval(nextBanner, 5000); }
     function resetBannerCarousel(){ clearInterval(bannerInterval); startBannerCarousel(); }
     
-    document.getElementById('bannerNext').addEventListener('click', () => { nextBanner(); resetBannerCarousel(); });
-    document.getElementById('bannerPrev').addEventListener('click', () => { prevBanner(); resetBannerCarousel(); });
+    document.getElementById('bannerNext').addEventListener('click', function() { nextBanner(); resetBannerCarousel(); });
+    document.getElementById('bannerPrev').addEventListener('click', function() { prevBanner(); resetBannerCarousel(); });
     
-    const bannerSection = document.querySelector('.banner-ofertas');
-    bannerSection.addEventListener('mouseenter', () => clearInterval(bannerInterval));
+    var bannerSection = document.querySelector('.banner-ofertas');
+    bannerSection.addEventListener('mouseenter', function() { clearInterval(bannerInterval); });
     bannerSection.addEventListener('mouseleave', startBannerCarousel);
     
     createDots();
@@ -1251,8 +1236,12 @@
     // ============================================================
     // BOTÓN VOLVER ARRIBA
     // ============================================================
-    window.addEventListener('scroll', () => {
-      backTop.classList.toggle('visible', window.scrollY > 400);
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 400) {
+        backTop.classList.add('visible');
+      } else {
+        backTop.classList.remove('visible');
+      }
     });
 
     // ============================================================
@@ -1264,7 +1253,7 @@
     renderCart();
 
     console.log("✅ CARNICERIA LUJAN - Número configurado: " + BUSINESS.whatsapp);
-    console.log("📱 El mensaje de WhatsApp está mejorado y más ordenado.");
+    console.log("📱 El mensaje de WhatsApp usa %0A%0A para saltos de línea.");
   </script>
 </body>
 </html>
